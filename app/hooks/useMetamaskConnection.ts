@@ -1,8 +1,28 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { getAddress } from "@/app/utils/getAddress";
 
 export function useMetaMaskConnection() {
   const [walletAddress, setWalletAddress] = useState<string | null>(null);
+
+  useEffect(() => {
+    checkConnection();
+  }, []);
+
+  const checkConnection = async () => {
+    if (window.ethereum) {
+      try {
+        const accounts = (await window.ethereum.request({
+          method: "eth_accounts",
+        })) as string[];
+        if (accounts?.length > 0) {
+          const address = await getAddress(0);
+          setWalletAddress(address);
+        }
+      } catch (error) {
+        console.error("Error checking MetaMask connection:", error);
+      }
+    }
+  };
 
   const connectToMetaMask = async () => {
     if (window.ethereum) {

@@ -19,7 +19,6 @@ export const useGetTransactions = () => {
 
     try {
       const response = await getLastFiveTransactionsRequest({ addressIndex });
-      console.log(response);
       setTransactions(response);
     } catch (e) {
       setError((e as Error).message);
