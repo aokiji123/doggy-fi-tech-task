@@ -17,12 +17,10 @@ export default function Transactions() {
   return (
     <div>
       {isLoading ? (
-        <>
-          <div className="flex items-center gap-[20px] justify-center">
-            <p>Loading transactions history </p>
-            <LoadingSpinner />
-          </div>
-        </>
+        <div className="flex items-center gap-[20px] justify-center">
+          <p>Loading transactions history </p>
+          <LoadingSpinner />
+        </div>
       ) : (
         <>
           <h3 className="mb-[20px]">Transactions History (last 5) :</h3>
@@ -32,6 +30,11 @@ export default function Transactions() {
               <li key={index}>
                 <p>Transaction Id: {tx.txid}</p>
                 <p>Transaction Hash: {tx.blockhash}</p>
+                <a
+                  className="text-blue-500"
+                  href={`https://wonky-ord.dogeord.io/tx/${tx.txid}`}
+                  target="_blank"
+                >{`https://wonky-ord.dogeord.io/tx/${tx.txid}`}</a>
                 <hr className="my-[20px]" />
               </li>
             ))}

@@ -9,11 +9,11 @@ type inscribeDataParams = {
 };
 
 export const useInscribeData = () => {
-  const [isLoading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const _inscribeData = async (data: inscribeDataParams) => {
-    setLoading(true);
+    setIsLoading(true);
     setError(null);
 
     const { addressIndex, toAddress, data: inscribeData, contentType } = data;
@@ -29,7 +29,7 @@ export const useInscribeData = () => {
       setError((e as Error).message);
     }
 
-    setLoading(false);
+    setIsLoading(false);
   };
 
   return {

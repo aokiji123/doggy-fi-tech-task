@@ -11,6 +11,7 @@
   "dependencies": {
     "@doggyfi-official/kobosu": "^0.1.2",
     "@metamask/key-tree": "^10.0.2",
+    "@metamask/providers": "^19.0.0",
     "@tanstack/react-query": "^5.65.0",
     "next": "15.1.6",
     "react": "^19.0.0",

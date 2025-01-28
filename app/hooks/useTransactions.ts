@@ -1,67 +1,31 @@
 import { useState } from "react";
 import { snapRpcRequest } from "@/app/utils/snapRpsRequest";
+import { TransactionInfo } from "../types/transaction.types";
 
-type getTransactionsParams = {
+export type getTransactionsParams = {
   addressIndex: number;
 };
 
-interface TransactionInfo {
-  txid: string;
-  hex: string;
-  size: number;
-  vsize: number;
-  vin: Vin[];
-  vout: Vout[];
-  blockhash: string;
-  confirmations: number;
-  time: number;
-  blocktime: number;
-}
-
-interface Vin {
-  txid: string;
-  vout: number;
-  scriptSig: ScriptSig;
-  sequence: number;
-}
-
-interface Vout {
-  value: number;
-  n: number;
-  scriptPubKey: ScriptPubKey;
-}
-
-interface ScriptSig {
-  asm: string;
-  hex: string;
-}
-
-interface ScriptPubKey {
-  asm: string;
-  hex: string;
-  type: string;
-  addresses: string[];
-}
-
 export const useGetTransactions = () => {
-  const [isLoading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [transactions, setTransactions] = useState<TransactionInfo[]>([]);
 
   const _getTransactions = async (params: getTransactionsParams) => {
-    setLoading(true);
+    setIsLoading(true);
     setError(null);
 
     const { addressIndex } = params;
 
     try {
-      const response = await getTransactionsRequest({ addressIndex });
+      const response = await getLastFiveTransactionsRequest({ addressIndex });
+      console.log(response);
       setTransactions(response);
     } catch (e) {
       setError((e as Error).message);
     }
 
-    setLoading(false);
+    setIsLoading(false);
   };
 
   return {
@@ -72,11 +36,14 @@ export const useGetTransactions = () => {
   };
 };
 
-export const getTransactionsRequest = async ({
+export const getLastFiveTransactionsRequest = async ({
   addressIndex,
 }: getTransactionsParams) => {
-  return await snapRpcRequest({
+  const transactions = await snapRpcRequest({
     snapRpcMethod: "getTransactions",
     params: { addressIndex },
   });
+
+  // last five transactions
+  return transactions.reverse().slice(0, 5);
 };

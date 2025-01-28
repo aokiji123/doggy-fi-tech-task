@@ -1,6 +1,6 @@
-import * as rpcMethods from "@/dogecoin-snap/packages/snap/src";
-
-type RpcMethods = typeof rpcMethods;
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-expect-error
+type RpcMethods = typeof any;
 type InferArgs<M extends keyof RpcMethods> = RpcMethods[M] extends (
   ...args: infer A
 ) => unknown
@@ -17,14 +17,17 @@ type RpcMethodTypes = {
 export const snapRpcRequest = async <M extends keyof RpcMethodTypes>(args: {
   snapRpcMethod: string;
   params: {
-    amount?: string;
+    amount?: string | number;
     receiver?: string;
     addressIndex?: number;
     id?: string;
     toAddress?: string;
+    ticker?: string;
+    data?: string;
+    contentType?: string;
   };
 }) => {
-  const result = await window.ethereum.request({
+  const result = await window.ethereum?.request({
     method: "wallet_invokeSnap",
     params: {
       snapId: "npm:@doggyfi-official/kobosu",

@@ -1,10 +1,10 @@
 import { FormEventHandler } from "react";
 
-interface MintDrc20FormProps {
+type MintDrc20FormProps = {
   onSubmit: FormEventHandler<HTMLFormElement>;
   isLoading: boolean;
   error: string | null;
-}
+};
 
 export const MintDRC20Form = ({
   onSubmit,

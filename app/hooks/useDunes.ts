@@ -2,13 +2,13 @@ import { useState } from "react";
 import { snapRpcRequest } from "@/app/utils/snapRpsRequest";
 
 export const useMintDunes = () => {
-  const [isLoading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [lastTxId, setLastTxId] = useState<string | null>(null);
 
   const _mintDune = async (data: FormData) => {
     setError(null);
-    setLoading(true);
+    setIsLoading(true);
     const addressIndex = data.get("addressIndex");
     const id = data.get("id");
     const amount = data.get("amount");
@@ -28,7 +28,7 @@ export const useMintDunes = () => {
     } catch (e) {
       setError((e as Error).message);
     }
-    setLoading(false);
+    setIsLoading(false);
   };
 
   return {
@@ -39,7 +39,7 @@ export const useMintDunes = () => {
   };
 };
 
-export const mintDune = async ({
+const mintDune = async ({
   addressIndex,
   toAddress,
   id,

@@ -37,7 +37,7 @@ export const useMintDRC20 = () => {
   return { lastTxId, isLoading, error, _mintDrc20 };
 };
 
-export const mintDrc20 = async ({
+const mintDrc20 = async ({
   addressIndex,
   toAddress,
   ticker,
