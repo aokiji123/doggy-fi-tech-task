@@ -75,7 +75,7 @@ export const useGetTransactions = () => {
 export const getTransactionsRequest = async ({
   addressIndex,
 }: getTransactionsParams) => {
-  await snapRpcRequest({
+  return await snapRpcRequest({
     snapRpcMethod: "getTransactions",
     params: { addressIndex },
   });
